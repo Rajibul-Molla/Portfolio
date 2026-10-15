@@ -1,0 +1,347 @@
+/* ==========================================================================
+   Hero Section Component Styles (1440px wide x 800px tall on desktop)
+   ========================================================================== */
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: -webkit-fill-available;
+  box-sizing: border-box;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+/* Subtle gradient overlay across background so text remains bright & readable */
+.hero-gradient-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+      rgba(0, 0, 0, 0.4) 0%,
+      rgba(0, 0, 0, 0.15) 45%,
+      rgba(0, 0, 0, 0) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Hero Text Content (Vertically centered, left padding 120px)
+   ========================================================================== */
+.hero-content {
+  position: relative;
+  z-index: 3;
+  padding-left: 120px;
+  padding-bottom: 30px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 680px;
+  padding-top: 238px;
+}
+
+
+
+.hero-greeting {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 28px;
+  font-weight: 400;
+  color: #FFFFFF;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.hero-name {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 60px;
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.15;
+  margin-top: 24px;
+  margin-bottom: 0;
+  max-width: 520px;
+  letter-spacing: -0.5px;
+}
+
+.hero-role {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-top: 16px;
+  margin-bottom: 0;
+  color: #FFFFFF;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.role-prefix {
+  color: #FFFFFF;
+  white-space: pre;
+}
+
+.role-typed {
+  color: #E11D48;
+}
+
+.role-cursor {
+  color: #E11D48;
+  font-weight: 700;
+  margin-left: 2px;
+  animation: cursorBlink 1s step-start infinite;
+}
+
+@keyframes cursorBlink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+/* "Hire me" button */
+.hire-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 151px;
+  height: 58px;
+  color: #FFFFFF;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 21px;
+  font-weight: 700;
+  border: 2px solid #E11D3F;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  margin-top: 36px;
+  text-decoration: none;
+
+  /* red fill layer that can be wiped away */
+  background-color: transparent;
+  background-image: linear-gradient(#E11D3F, #E11D3F);
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: 100% 100%;
+
+  transition: background-size 0.45s cubic-bezier(0.65, 0, 0.35, 1),
+    color 0.45s ease,
+    box-shadow 0.3s ease,
+    transform 0.2s ease;
+}
+
+.hire-btn:hover {
+  background-size: 0% 100%;
+  /* fill sweeps out left → right */
+  color: #E11D3F;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+}
+
+.hire-btn:active {
+  transform: scale(0.97);
+}
+
+/* ==========================================================================
+   Portrait (Anchored bottom-right flush with hero bottom)
+   ========================================================================== */
+
+@keyframes portraitSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(120px);
+    filter: blur(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+    filter: blur(0px);
+  }
+}
+
+.hero-portrait-container {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 535px;
+  height: 630px;
+  z-index: 2;
+  pointer-events: auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  animation: portraitSlideIn 1s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+}
+
+.hero-portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom right;
+  display: block;
+  user-select: none;
+  transition: filter 0.5s ease;
+  filter: none;
+}
+
+.hero-portrait-container:hover .hero-portrait {
+  filter: grayscale(100%) contrast(1.05) brightness(0.9);
+}
+
+/* ==========================================================================
+   Responsive Hero Breakpoints
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .hero-content {
+    padding-left: 40px;
+    max-width: 520px;
+  }
+
+  .hero-name {
+    font-size: 56px;
+    max-width: 400px;
+    margin-top: 20px;
+  }
+
+  .hero-role {
+    font-size: 34px;
+    margin-top: 14px;
+  }
+
+  .hero-portrait-container {
+    width: 45%;
+    height: 520px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-content {
+    padding-left: 32px;
+    padding-right: 32px;
+    max-width: 100%;
+  }
+
+  .hero-portrait {
+    transform: translateX(54px) scale(1.7);
+    /* 1.3 = 30% bigger, adjust to taste */
+    transform-origin: bottom right;
+    /* grows up and to the left, stays anchored to the corner */
+  }
+
+
+
+  .hero-name {
+    font-size: 48px;
+    max-width: 100%;
+  }
+
+  .hero-role {
+    font-size: 28px;
+  }
+
+  .hire-btn {
+    width: 156px;
+    height: 56px;
+    font-size: 20px;
+    margin-top: 28px;
+  }
+}
+
+@media (max-width: 640px) {
+
+  /* Keep hero exactly one screen tall — no extra scroll */
+  .hero-section {
+    height: 100svh;
+    min-height: 560px;
+    padding-top: 0;
+    display: block;
+
+    background-size: contain;
+    background-position: center top;
+    background-color: #0c0c0c;
+
+    background-size: cover;
+    background-position: 30% center;
+  }
+
+  /* Text block pinned to the bottom, layered on top of portrait */
+  .hero-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 4;
+    height: auto;
+    max-width: 100%;
+    padding-left: 35px;
+    padding-right: 24px;
+    padding-top: 32px;
+    padding-bottom: 65px;
+    /* Dark gradient so text stays legible over the portrait */
+    background: linear-gradient(to top,
+        rgba(0, 0, 0, 0.82) 0%,
+        rgba(0, 0, 0, 0.55) 60%,
+        rgba(0, 0, 0, 0) 100%);
+    align-items: flex-start;
+    text-align: left;
+    justify-content: flex-end;
+  }
+
+  .hero-greeting {
+    font-size: 20px;
+  }
+
+  .hero-name {
+    font-size: 38px;
+    line-height: 1.15;
+    margin-top: 10px;
+  }
+
+  .hero-role {
+    font-size: 21px;
+    margin-top: 8px;
+    justify-content: flex-start;
+  }
+
+  .hire-btn {
+    margin-top: 20px;
+  }
+
+  .navbar-bird {
+    left: auto;
+    right: -17px;
+    top: 188px;
+    width: 114px;
+    height: auto;
+  }
+
+  /* Portrait anchored bottom-right, original sizing */
+  .hero-portrait-container {
+    position: absolute;
+    right: -20px;
+    bottom: 0;
+    top: auto;
+    width: 70%;
+    max-width: 300px;
+    height: auto;
+    aspect-ratio: 535 / 630;
+    z-index: 2;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+
+  .hero-portrait {
+    object-fit: contain;
+    object-position: bottom right;
+  }
+}

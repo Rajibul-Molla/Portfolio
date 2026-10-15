@@ -1,0 +1,534 @@
+/* ==========================================================================
+   Navbar Component Styles
+   ========================================================================== */
+.navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding-top: 20px;
+  padding-left: 120px;
+  padding-right: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+  z-index: 20;
+}
+
+/* Logo: "Portfo" white, "lio." #E11D48 */
+.navbar-logo {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-block;
+  user-select: none;
+}
+
+.logo-white {
+  color: #FFFFFF;
+}
+
+.logo-accent {
+  color: #E11D48;
+}
+
+/* ==========================================================================
+   Cloud decoration below logo
+   ========================================================================== */
+
+@keyframes cloudBounce {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  40% {
+    transform: translateY(-7px);
+  }
+
+  70% {
+    transform: translateY(-3px);
+  }
+}
+
+.navbar-cloud {
+  position: absolute;
+  left: 242px;
+  top: 52px;
+  width: 300PX;
+  height: auto;
+  pointer-events: auto;
+  cursor: default;
+  user-select: none;
+  opacity: 0.88;
+  animation: cloudBounce 3.2s ease-in-out infinite;
+  transition: filter 0.4s ease, opacity 0.4s ease;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+}
+
+.navbar-cloud:hover {
+  opacity: 0.9;
+  filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.40));
+}
+
+/* ==========================================================================
+   Bird decoration beside cloud
+   ========================================================================== */
+
+@keyframes birdFloat {
+
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  35% {
+    transform: translateY(-5px) rotate(-2deg);
+  }
+
+  65% {
+    transform: translateY(-9px) rotate(1deg);
+  }
+}
+
+.navbar-bird {
+  position: absolute;
+  left: 555px;
+  top: 15px;
+  width: 150px;
+  height: auto;
+  pointer-events: auto;
+  cursor: default;
+  user-select: none;
+  opacity: 0.9;
+  /* animation: birdFloat 2.8s ease-in-out 0.6s infinite; */
+  transition: filter 0.4s ease, opacity 0.4s ease;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
+}
+
+/* .navbar-bird:hover {
+  opacity: 1;
+  filter:
+    drop-shadow(0 0 6px rgba(255, 255, 255, 0.9))
+    drop-shadow(0 0 14px rgba(255, 255, 255, 0.5))
+    drop-shadow(0 0 26px rgba(255, 255, 255, 0.2));
+} */
+
+/* Navigation Links Container */
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.nav-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Top-level Nav Link Style */
+.nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  padding: 4px 0;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+  gap: 8px;
+}
+
+/* Nav icon shared style */
+.nav-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  opacity: 0.7;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.nav-link:hover .nav-icon,
+.nav-link:focus-visible .nav-icon,
+.nav-link.active .nav-icon,
+.dropdown-open>.dropdown-toggle .nav-icon {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* 2px crimson underline 6px below text */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 80%;
+  height: 3px;
+  background-color: #E11D48;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover, Focus, and Active states for Top-Level Links */
+.nav-link:hover,
+.nav-link:focus-visible,
+.nav-link.active,
+.dropdown-open>.dropdown-toggle {
+  color: #FFFFFF;
+  /* transform: translateY(-2px); */
+  outline: none;
+}
+
+.nav-link:hover::after,
+.nav-link:focus-visible::after,
+.nav-link.active::after,
+.dropdown-open>.dropdown-toggle::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Dropdown toggle button styling */
+.dropdown-toggle {
+  display: inline-flex;
+  align-items: center;
+}
+
+.chevron-icon {
+  margin-left: 6px;
+  width: 14px;
+  height: 14px;
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+
+
+
+.chevron-icon.rotated,
+.has-dropdown:hover .chevron-icon {
+  transform: rotate(180deg);
+}
+
+/* Dropdown Panel */
+.dropdown-panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 200px;
+  margin-top: 16px;
+  padding: 8px;
+  background: rgba(20, 20, 20, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+  z-index: 30;
+}
+
+/* Invisible hover bridge between link and panel */
+.dropdown-panel::before {
+  content: '';
+  position: absolute;
+  top: -16px;
+  left: 0;
+  right: 0;
+  height: 16px;
+  background: transparent;
+}
+
+/* Show dropdown on hover or open state */
+.has-dropdown:hover .dropdown-panel,
+.dropdown-panel.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  visibility: visible;
+}
+
+/* Dropdown Sub-Items */
+.dropdown-item {
+  position: relative;
+  display: block;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #FFFFFF;
+  padding: 10px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  background: transparent;
+  transition: background-color 0.2s ease, color 0.2s ease, padding-left 0.2s ease;
+  overflow: hidden;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Dropdown icon */
+.dropdown-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  opacity: 0.6;
+  transition: opacity 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.dropdown-item:hover .dropdown-icon,
+.dropdown-item:focus-visible .dropdown-icon {
+  opacity: 1;
+  color: #E11D48;
+  transform: scale(1.1);
+}
+
+/* 3px crimson bar on left edge */
+.dropdown-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background-color: #E11D48;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus-visible {
+  background: rgba(225, 29, 72, 0.12);
+  color: #E11D48;
+  padding-left: 20px;
+  outline: none;
+}
+
+.dropdown-item:hover::before,
+.dropdown-item:focus-visible::before {
+  opacity: 1;
+}
+
+/* Mobile Hamburger Button (Hidden on desktop) */
+.mobile-hamburger {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: #FFFFFF;
+  z-index: 25;
+}
+
+/* ==========================================================================
+   Responsive Navbar Breakpoints
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .navbar {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  .navbar-links {
+    gap: 24px;
+  }
+}
+
+
+/* ==========================================================================
+   Mobile — hamburger visible, desktop links hidden
+   ========================================================================== */
+@media (min-width: 769px) {
+
+  .mobile-menu,
+  .mobile-backdrop,
+  .mobile-accordion,
+  .mobile-hamburger {
+    display: none !important;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .navbar-links {
+    display: none;
+  }
+
+  .mobile-hamburger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* ── Backdrop ──────────────────────────────────────────────────── */
+  .mobile-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 28;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+
+  .mobile-backdrop--visible {
+    display: block;
+    opacity: 1;
+  }
+
+  /* ── Slide panel (left → right) ────────────────────────────────── */
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 65vw;
+    max-width: 320px;
+    height: 100%;
+    background: rgba(12, 12, 12, 0.97);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-right: 1px solid rgba(255, 255, 255, 0.07);
+    padding: 80px 0 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    z-index: 29;
+    /* Hidden state: off-screen to the left */
+    transform: translateX(-100%);
+    transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+  }
+
+  .mobile-menu--open {
+    transform: translateX(0);
+  }
+
+  /* ── Mobile nav row (icon + label + optional chevron) ──────────── */
+  .mobile-nav-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    min-height: 52px;
+    padding: 0 20px;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 17px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    /* Reset any inherited underline pseudo from .nav-link */
+    position: static;
+    transition: background 0.18s ease, color 0.18s ease;
+    box-sizing: border-box;
+    text-align: left;
+  }
+
+  .mobile-nav-row:hover,
+  .mobile-nav-row.active {
+    background: rgba(225, 29, 72, 0.1);
+    color: #FFFFFF;
+  }
+
+  /* Icon wrapper — fixed size so label always starts at same x */
+  .mobile-nav-row__icon {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    width: 20px;
+    color: rgba(255, 255, 255, 0.6);
+    transition: color 0.18s ease;
+  }
+
+  .mobile-nav-row:hover .mobile-nav-row__icon,
+  .mobile-nav-row.active .mobile-nav-row__icon {
+    color: #E11D48;
+  }
+
+  .mobile-nav-row__label {
+    flex: 1;
+    line-height: 1;
+  }
+
+  /* Chevron sits at the far right naturally because label has flex:1 */
+  .mobile-nav-row .chevron-icon {
+    margin-left: 0;
+    flex-shrink: 0;
+    color: rgba(255, 255, 255, 0.5);
+    transition: transform 0.25s ease, color 0.18s ease;
+  }
+
+  .mobile-nav-row:hover .chevron-icon {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  /* ── Mobile accordion ──────────────────────────────────────────── */
+  .mobile-accordion {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Always-mounted sub-items: collapse via max-height */
+  .mobile-accordion-items {
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    gap: 2px;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .mobile-accordion-items--open {
+    /* Large enough to never clip: 3 items × ~52px each */
+    max-height: 200px;
+  }
+
+  /* Sub-items get same left-indent treatment */
+  .mobile-accordion-items .dropdown-item {
+    padding-left: 14px;
+    border-radius: 6px;
+    min-height: 44px;
+  }
+
+  /* ── Cloud mobile override ─────────────────────────────────────── */
+  .navbar-cloud {
+    left: 14px !important;
+    top: 63px !important;
+    width: 254px !important;
+  }
+}
+
+/* ==========================================================================
+   Extra-small screens (≤ 640px)
+   ========================================================================== */
+@media (max-width: 640px) {
+  .navbar {
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
