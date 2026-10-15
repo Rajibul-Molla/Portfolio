@@ -7,13 +7,13 @@ export default function InfoCard() {
   return (
     <div className="ov-card ov-card--info">
       {info.map((row, i) => (
-        <React.Fragment key={i}>
+        <div key={i} className="ov-info-item">
           <div className="ov-info-row">
             <span className="ov-info-label">{row.label}</span>
             <span className="ov-info-value">{row.value}</span>
           </div>
           {i < info.length - 1 && <div className="ov-info-divider" />}
-        </React.Fragment>
+        </div>
       ))}
     </div>
   );

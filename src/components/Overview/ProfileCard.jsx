@@ -2,58 +2,56 @@ import React from "react";
 import { overviewData } from "./overviewData";
 
 export default function ProfileCard() {
-  const { badge, name, role, images } = overviewData;
+  const { badge, name, role } = overviewData;
 
   return (
     <div className="ov-card ov-card--profile">
-      {/* City image background layer */}
-      <div
-        className="ov-profile-bg"
-        style={{ backgroundImage: `url(${images.city})` }}
-      />
-      {/* Dark overlay */}
-      <div className="ov-profile-overlay" />
-
-      {/* Faint truss SVG art */}
-      <svg
-        className="ov-profile-truss"
-        viewBox="0 0 388 473"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-        preserveAspectRatio="xMidYMid slice"
-      >
-        <line x1="0" y1="473" x2="388" y2="0" stroke="rgba(225,29,72,0.12)" strokeWidth="1" />
-        <line x1="0" y1="350" x2="388" y2="0" stroke="rgba(225,29,72,0.10)" strokeWidth="1" />
-        <line x1="0" y1="473" x2="290" y2="0" stroke="rgba(225,29,72,0.10)" strokeWidth="1" />
-        <line x1="80" y1="473" x2="388" y2="100" stroke="rgba(225,29,72,0.08)" strokeWidth="1" />
-        <line x1="0" y1="200" x2="388" y2="473" stroke="rgba(225,29,72,0.07)" strokeWidth="1" />
-        <line x1="0" y1="473" x2="388" y2="120" stroke="rgba(225,29,72,0.06)" strokeWidth="1" />
-      </svg>
-
-      {/* Thin horizontal divider near top */}
-      <div className="ov-profile-divider" />
-
-      {/* Portrait */}
-      <div className="ov-profile-portrait-wrap">
-        <img
-          src={images.portrait}
-          alt={`Portrait of ${name}`}
-          className="ov-profile-portrait"
-          draggable="false"
-        />
-        <div className="ov-profile-portrait-fade" />
+      {/* Top: Red pill badge with white dot */}
+      <div className="ov-profile-top">
+        <div className="ov-profile-badge" aria-label={badge}>
+          <span className="ov-profile-badge-dot" aria-hidden="true" />
+          {badge}
+        </div>
       </div>
 
-      {/* Badge */}
-      <div className="ov-profile-badge" aria-label={badge}>
-        <span className="ov-profile-badge-dot" aria-hidden="true" />
-        {badge}
+      {/* Middle: Subtle line-art bridge truss pattern */}
+      <div className="ov-profile-truss-wrap" aria-hidden="true">
+        <svg
+          className="ov-profile-truss-svg"
+          viewBox="0 0 300 80"
+          preserveAspectRatio="none"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          {/* Top & bottom horizontal lines */}
+          <line x1="0" y1="1" x2="300" y2="1" stroke="rgba(255, 255, 255, 0.15)" strokeWidth="1" />
+          <line x1="0" y1="79" x2="300" y2="79" stroke="rgba(255, 255, 255, 0.15)" strokeWidth="1" />
+
+          {/* Vertical dividers */}
+          <line x1="0" y1="1" x2="0" y2="79" stroke="rgba(255, 255, 255, 0.15)" strokeWidth="1" />
+          <line x1="100" y1="1" x2="100" y2="79" stroke="rgba(255, 255, 255, 0.15)" strokeWidth="1" />
+          <line x1="200" y1="1" x2="200" y2="79" stroke="rgba(255, 255, 255, 0.15)" strokeWidth="1" />
+          <line x1="300" y1="1" x2="300" y2="79" stroke="rgba(255, 255, 255, 0.15)" strokeWidth="1" />
+
+          {/* Diagonals */}
+          <line x1="0" y1="1" x2="100" y2="79" stroke="rgba(255, 255, 255, 0.15)" strokeWidth="1" />
+          <line x1="0" y1="79" x2="100" y2="1" stroke="rgba(255, 255, 255, 0.15)" strokeWidth="1" />
+
+          <line x1="100" y1="1" x2="200" y2="79" stroke="rgba(255, 255, 255, 0.15)" strokeWidth="1" />
+          <line x1="100" y1="79" x2="200" y2="1" stroke="rgba(255, 255, 255, 0.15)" strokeWidth="1" />
+
+          <line x1="200" y1="1" x2="300" y2="79" stroke="rgba(255, 255, 255, 0.15)" strokeWidth="1" />
+          <line x1="200" y1="79" x2="300" y2="1" stroke="rgba(255, 255, 255, 0.15)" strokeWidth="1" />
+        </svg>
       </div>
 
-      {/* Name + role */}
-      <div className="ov-profile-info">
-        <p className="ov-profile-name">{name}</p>
+      {/* Bottom: Name, title, and crop note */}
+      <div className="ov-profile-bottom">
+        <h3 className="ov-profile-name">{name}</h3>
         <p className="ov-profile-role">{role}</p>
+        <p className="ov-profile-note">
+          Replace this panel with your portrait, cropped to fit
+        </p>
       </div>
     </div>
   );

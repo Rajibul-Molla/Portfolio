@@ -2,7 +2,7 @@ import cityImg from "../../assets/overview-city.jpg";
 import portraitImg from "../../assets/overview-potrait.jpg";
 
 export const overviewData = {
-  badge: "Open to work",
+  badge: "Open to new opportunities",
   name: "Rajibul Molla",
   role: "Full-stack software engineer",
   heading: "I build the whole feature, database to browser.",
@@ -13,7 +13,7 @@ export const overviewData = {
   buttons: {
     primary: "Download resume",
     secondary: "Contact me",
-    resumeUrl: "/resume.pdf",
+    resumeUrl: "/assets/Rajibul_Molla_2026.pdf",
   },
   stats: [
     { label: "Projects", value: 20, suffix: "+" },
@@ -28,7 +28,7 @@ export const overviewData = {
   ],
   location: {
     label: "Based in",
-    value: "[Your city], West Bengal",
+    value: "Kolkata, West Bengal",
   },
   images: {
     city: cityImg,

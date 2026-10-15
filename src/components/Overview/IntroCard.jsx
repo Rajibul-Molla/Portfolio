@@ -4,12 +4,12 @@ import { overviewData } from "./overviewData";
 function DownloadIcon() {
   return (
     <svg
-      width="18"
-      height="18"
+      width="16"
+      height="16"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth="2.2"
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
@@ -29,20 +29,46 @@ export default function IntroCard() {
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
   }
 
+  async function handleDownloadResume(e) {
+    e.preventDefault();
+    try {
+      const response = await fetch(buttons.resumeUrl);
+      if (!response.ok) throw new Error("Network response was not ok");
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.download = "Rajibul_Molla_2026.pdf";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(blobUrl);
+    } catch {
+      // Fallback: direct download link navigation
+      const fallbackLink = document.createElement("a");
+      fallbackLink.href = buttons.resumeUrl;
+      fallbackLink.download = "Rajibul_Molla_2026.pdf";
+      document.body.appendChild(fallbackLink);
+      fallbackLink.click();
+      document.body.removeChild(fallbackLink);
+    }
+  }
+
   return (
     <div className="ov-card ov-card--intro">
-      <h2 className="ov-intro-heading">{heading}</h2>
+      <h1 className="ov-intro-heading">{heading}</h1>
       <p className="ov-intro-p1">{paragraphs[0]}</p>
       <p className="ov-intro-p2">{paragraphs[1]}</p>
       <div className="ov-intro-buttons">
         <a
           href={buttons.resumeUrl}
-          download
+          download="Rajibul_Molla_2026.pdf"
+          onClick={handleDownloadResume}
           className="ov-btn ov-btn--primary"
           id="ov-download-resume"
         >
           <DownloadIcon />
-          {buttons.primary}
+          <span>{buttons.primary}</span>
         </a>
         <button
           type="button"

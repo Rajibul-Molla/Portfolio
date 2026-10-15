@@ -2,16 +2,19 @@ import { useState, useEffect, useRef } from "react";
 
 /**
  * Counts from 0 to `target` over `duration` ms.
- * Starts only once `enabled` is true (card entered viewport).
+ * Starts when `enabled` is true, resets when `enabled` becomes false,
+ * allowing re-animation whenever scrolled into screen.
  */
 export function useCountUp(target, duration = 1200, enabled = false) {
   const [count, setCount] = useState(0);
   const raf = useRef(null);
-  const started = useRef(false);
 
   useEffect(() => {
-    if (!enabled || started.current) return;
-    started.current = true;
+    if (!enabled) {
+      setCount(0);
+      if (raf.current) cancelAnimationFrame(raf.current);
+      return;
+    }
 
     let startTime = null;
 

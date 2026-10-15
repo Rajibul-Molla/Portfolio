@@ -1,9 +1,7 @@
 import React from "react";
 import "./Overview.css";
-import Reveal from "./Reveal";
 import ProfileCard from "./ProfileCard";
 import IntroCard from "./IntroCard";
-import StatsCard from "./StatsCard";
 import InfoCard from "./InfoCard";
 import LocationCard from "./LocationCard";
 
@@ -12,30 +10,25 @@ export default function Overview() {
     <section id="overview" className="ov-section">
       <div className="ov-container">
         <div className="ov-grid">
-          {/* Card A — Profile (dark) */}
-          <Reveal delay="0s" className="ov-grid-a">
+          {/* Left column: ONE tall dark card spanning both rows */}
+          <div className="ov-grid-profile">
             <ProfileCard />
-          </Reveal>
+          </div>
 
-          {/* Card B — Intro */}
-          <Reveal delay="0.12s" className="ov-grid-b">
+          {/* Top right (spans 2 columns): Headline & action card */}
+          <div className="ov-grid-intro">
             <IntroCard />
-          </Reveal>
+          </div>
 
-          {/* Card C — Stats */}
-          <Reveal delay="0.24s" className="ov-grid-c">
-            <StatsCard />
-          </Reveal>
-
-          {/* Card D — Info */}
-          <Reveal delay="0.36s" className="ov-grid-d">
+          {/* Bottom right: Info card */}
+          <div className="ov-grid-info">
             <InfoCard />
-          </Reveal>
+          </div>
 
-          {/* Card E — Location */}
-          <Reveal delay="0.48s" className="ov-grid-e">
+          {/* Bottom right: Red Location card */}
+          <div className="ov-grid-location">
             <LocationCard />
-          </Reveal>
+          </div>
         </div>
       </div>
     </section>
