@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Hero from './components/Hero/Hero';
 import BlackStrip from './components/BlackStrip/BlackStrip';
+import Overview from './components/Overview/Overview';
 import './App.css';
 
 /**
@@ -24,6 +25,9 @@ function App() {
 
       {/* 160px Solid Black Strip */}
       <BlackStrip />
+
+      {/* Overview / About Me Section */}
+      <Overview />
 
       {/* Target anchor sections for smooth scroll (#about, #education, etc.) */}
       <div id="about" tabIndex="-1" />
