@@ -1,0 +1,1143 @@
+/* ============================================================
+   Education.css
+   All styles are scoped under the .edu root class.
+
+   Fonts: Ubuntu is already imported by Overview.css (loaded globally via
+   the browser before this section renders). Anton and Fraunces are still
+   needed here for the "Education" heading and the "By the numbers" block.
+   JetBrains Mono is no longer used — removed from @import.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Fraunces:opsz,wght@9..144,700&family=Ubuntu:wght@400;500;700&display=swap');
+
+/* ============================================================
+   1. DESIGN TOKENS (CSS variables on .edu)
+   ============================================================ */
+.edu {
+  /* Colours */
+  --edu-bg: #f1eeee;
+  /* Change 3: light background */
+  --edu-panel: #1A1415;
+  --edu-card: #241D1F;
+  --edu-border: rgba(255, 255, 255, 0.08);
+  --edu-border-hover: rgba(232, 36, 79, 0.45);
+
+  --edu-text: #F6EFEC;
+  --edu-muted: #A39596;
+  --edu-accent: #E11D48;
+  --edu-accent-hover: #be123c;
+  --edu-coral: #FF4D6A;
+
+  /* Active card gradient */
+  --edu-active-grad: linear-gradient(160deg, #F0214F 0%, #D01652 55%, #A5124A 100%);
+  --edu-active-glow: 0 0 50px rgba(240, 33, 79, 0.45);
+
+  /* Radii */
+  --edu-radius-outer: 28px;
+  --edu-radius-inner: 16px;
+  --edu-radius-card: 20px;
+
+  /* Fonts — Change 2 */
+  /* Anton: used ONLY for the "Education" h2 and the stat big numbers */
+  --edu-font-display: 'Anton', Impact, sans-serif;
+  /* Fraunces: used ONLY for "By the numbers" heading */
+  --edu-font-serif: 'Fraunces', Georgia, serif;
+  /* Ubuntu: base font for everything else */
+  --edu-font-body: 'Ubuntu', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Layout */
+  --edu-max-width: 1100px;
+}
+
+
+/* ============================================================
+   2. SECTION SHELL & CONTAINER
+   ============================================================ */
+.edu {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--edu-bg);
+  /* #f1eeee — Change 3 */
+  /* Change 4: 80vh height + 3vh padding, desktop */
+  /* height: 80vh;
+  min-height: 560px; */
+  height: 100vh;
+  min-height: 630px;
+  padding: 3vh 24px;
+  padding-left: 100px;
+  overflow: hidden;
+  /* Change 2: Ubuntu as the base font for everything */
+  font-family: var(--edu-font-body);
+  color: var(--edu-text);
+  display: flex;
+  flex-direction: column;
+}
+
+/* bg-glow element is gone (no dark background to need it).
+   The div still exists in the DOM from old renders but is hidden. */
+.edu__bg-glow {
+  display: none;
+}
+
+.edu__container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: var(--edu-max-width);
+  margin: 0 auto 0 0;
+  /* Fill the section height so panels can stretch */
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* ============================================================
+   3. 70 / 30 GRID  — Change 4: stretch to fill height
+   ============================================================ */
+.edu__grid {
+  display: grid;
+  grid-template-columns: 70% 30%;
+  gap: 20px;
+  /* Fill the container height */
+  flex: 1;
+  min-height: 0;
+  align-items: stretch;
+}
+
+.edu__panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* Left panel: header is natural height, stairs grow, certs at bottom */
+.edu__panel--left {
+  gap: clamp(10px, 1.5vh, 20px);
+}
+
+/* Right panel: flex column with consistent gap, space-between removed */
+.edu__panel--right {
+  background: var(--edu-panel);
+  border: 1px solid var(--edu-border);
+  border-radius: var(--edu-radius-outer);
+  padding: clamp(24px, 3.5vh, 34px) clamp(20px, 1.8vw, 30px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: clamp(20px, 3vh, 32px);
+  box-sizing: border-box;
+  min-height: 0;
+  height: 100%;
+}
+
+/* Flex-grow wrapper for the staircase so it fills leftover left-panel height */
+.edu__stairs-flex {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================================
+   4. SECTION HEADER (heading + subtitle)
+   ============================================================ */
+.edu__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+/* "Education" heading — KEEPS Anton (Change 2 exception) */
+.edu__heading {
+  font-family: var(--edu-font-display);
+  font-size: clamp(56px, 9vh, 84px);
+  /* vh-aware clamp for 80vh layout */
+  line-height: 1.0;
+  color: #1a1616;
+  /* dark on light #f1eeee background */
+  letter-spacing: -0.01em;
+  margin: 0;
+  text-transform: uppercase;
+
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s cubic-bezier(.2, .8, .2, 1),
+    transform 0.6s cubic-bezier(.2, .8, .2, 1);
+}
+
+.edu__heading--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Subtitle — Ubuntu (Change 2), muted on light bg */
+.edu__subtitle {
+  font-family: var(--edu-font-body);
+  font-size: 13px;
+  font-weight: 400;
+  color: #777777;
+  /* readable muted on #f1eeee */
+  max-width: 160px;
+  text-align: right;
+  line-height: 1.5;
+  margin: 0;
+  flex-shrink: 0;
+  align-self: center;
+
+  opacity: 0;
+  transition: opacity 0.5s ease 0.15s;
+}
+
+.edu__subtitle--visible {
+  opacity: 1;
+}
+
+
+/* ============================================================
+   5. STAIRCASE
+   ============================================================ */
+.edu__stairs-wrap {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Shared floor line — draws left→right */
+.edu__stairs-floor {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  width: 0;
+  transition: width 0.7s cubic-bezier(.2, .8, .2, 1) 0.15s;
+  z-index: 2;
+}
+
+.edu__stairs-floor--visible {
+  width: 100%;
+}
+
+/* Row: 4 cards, equal columns, aligned to their bottoms */
+.edu__stairs-row {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 11px;
+  align-items: end;
+  /* Fill the stairs-wrap height */
+  flex: 1;
+  min-height: 0;
+}
+
+
+/* ── Individual step card ──────────────────────────────────── */
+.edu__step {
+  position: relative;
+  background: var(--edu-card);
+  border: 1px solid var(--edu-border);
+  border-radius: 24px 24px 0 0;
+  padding: clamp(10px, 1.5vh, 18px) 16px clamp(12px, 2vh, 22px);
+  box-sizing: border-box;
+  overflow: hidden;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(4px, 0.8vh, 8px);
+
+  /* Change 4: card heights as % of staircase container, staggered */
+  /* Base height kept small so tallest (100%) never overflows */
+  height: 52%;
+
+  opacity: 0;
+  transform: translateY(60px);
+  transition:
+    opacity 0.55s cubic-bezier(.2, .8, .2, 1) var(--edu-step-delay, 0ms),
+    transform 0.55s cubic-bezier(.2, .8, .2, 1) var(--edu-step-delay, 0ms),
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/*
+ * Staircase: percentage heights of the row container.
+ * card 1 = 52%, card 2 = 67%, card 3 = 82%, card 4 = 100%
+ */
+.edu__stairs-row .edu__step:nth-child(1) {
+  height: 52%;
+}
+
+.edu__stairs-row .edu__step:nth-child(2) {
+  height: 67%;
+}
+
+.edu__stairs-row .edu__step:nth-child(3) {
+  height: 82%;
+}
+
+.edu__stairs-row .edu__step:nth-child(4) {
+  height: 100%;
+}
+
+.edu__step--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hover on inactive cards */
+.edu__step:not(.edu__step--active):hover {
+  transform: translateY(-6px);
+  border-color: rgba(232, 36, 79, 0.35);
+  box-shadow: 0 0 18px rgba(232, 36, 79, 0.15);
+}
+
+/* Active card */
+.edu__step--active {
+  background: var(--edu-active-grad);
+  border-color: transparent;
+  box-shadow: var(--edu-active-glow);
+  animation: edu-active-pulse 3s ease-in-out infinite;
+}
+
+/* "You are here" badge — Change 2: Ubuntu */
+.edu__step-badge {
+  position: absolute;
+  top: -1px;
+  right: 14px;
+  background: #ffffff;
+  color: var(--edu-accent);
+  font-family: var(--edu-font-body);
+  font-size: 10px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+  animation: edu-badge-float 2.8s ease-in-out infinite;
+}
+
+/* Icon + year row — Change 2: Ubuntu for year text */
+.edu__step-top {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.edu__step-icon {
+  flex-shrink: 0;
+  color: var(--edu-muted);
+  width: 14px;
+  height: 14px;
+}
+
+.edu__step--active .edu__step-icon {
+  color: #ffffff;
+}
+
+/* Change 2: Ubuntu for year labels */
+.edu__step-years {
+  font-family: var(--edu-font-body);
+  font-size: clamp(9px, 1vh, 11px);
+  font-weight: 400;
+  color: var(--edu-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.edu__step--active .edu__step-years {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/*
+ * Change 2: Card title switches from Anton to Ubuntu 700.
+ * Sizes re-tuned: Ubuntu is less condensed so we drop to 26–28px.
+ * line-height 1.1 keeps it compact enough to fit in shorter cards.
+ */
+.edu__step-title {
+  font-family: var(--edu-font-body);
+  font-size: clamp(18px, 2.2vh, 28px);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--edu-text);
+  margin: 0;
+  /* No uppercase — Ubuntu 700 reads well in mixed case */
+}
+
+/* Active card title slightly larger */
+.edu__step--active .edu__step-title {
+  font-size: clamp(20px, 2.5vh, 30px);
+}
+
+/* Institution — unchanged Ubuntu 600 */
+.edu__step-institution {
+  font-family: var(--edu-font-body);
+  font-size: clamp(10px, 1.2vh, 12px);
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.3;
+  flex-shrink: 0;
+}
+
+/* Description — Ubuntu 400 */
+.edu__step-desc {
+  font-family: var(--edu-font-body);
+  font-size: clamp(9px, 1.1vh, 11px);
+  font-weight: 400;
+  color: var(--edu-muted);
+  margin: 0;
+  line-height: 1.45;
+  /* Allow desc to shrink before the card does */
+  overflow: hidden;
+}
+
+.edu__step--active .edu__step-desc {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/*
+ * Ghost numeral — Change 2: Ubuntu 700 replaces Anton.
+ * Slightly smaller because Ubuntu numerals are wider.
+ */
+.edu__step-ghost {
+  font-family: var(--edu-font-body);
+  font-weight: 700;
+  font-size: clamp(80px, 12vh, 130px);
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.06);
+  position: absolute;
+  bottom: -20px;
+  right: -4px;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  transition: opacity 0.4s ease 0.3s;
+}
+
+.edu__step:not(.edu__step--visible) .edu__step-ghost {
+  opacity: 0;
+}
+
+.edu__step--active .edu__step-ghost {
+  color: rgba(255, 255, 255, 0.18);
+}
+
+/* Text layers above ghost */
+.edu__step-top,
+.edu__step-title,
+.edu__step-institution,
+.edu__step-desc {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* ============================================================
+   6. CERTIFICATIONS
+   ============================================================ */
+.edu__certs-section {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 1.2vh, 14px);
+  flex-shrink: 0;
+}
+
+/* Change 2: Ubuntu replaces Fraunces */
+.edu__certs-heading {
+  font-family: var(--edu-font-body);
+  font-size: clamp(16px, 2.2vh, 22px);
+  font-weight: 700;
+  color: #1a1616;
+  /* dark text on light section bg */
+  margin: 0;
+}
+
+.edu__certs-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+/*
+ * Ticket card. Change 4: height uses clamp with vh.
+ * The notch circle sits on the left/right edge (absolute span).
+ */
+.edu__cert {
+  position: relative;
+  background: var(--edu-card);
+  border: 1px solid var(--edu-border);
+  border-radius: 14px;
+  min-height: clamp(48px, 7vh, 60px);
+  display: flex;
+  align-items: center;
+  padding: 8px 22px;
+  box-sizing: border-box;
+  overflow: visible;
+
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.4s ease var(--edu-cert-delay, 0ms),
+    transform 0.4s ease var(--edu-cert-delay, 0ms),
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.edu__cert--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.edu__cert:hover {
+  transform: translateY(-4px);
+  border-color: rgba(232, 36, 79, 0.3);
+  box-shadow: 0 0 14px rgba(232, 36, 79, 0.1);
+}
+
+.edu__cert-body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+/* Change 2: Ubuntu */
+.edu__cert-name {
+  font-family: var(--edu-font-body);
+  font-size: clamp(11px, 1.5vh, 14px);
+  font-weight: 600;
+  color: var(--edu-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Change 2: Ubuntu replaces JetBrains Mono */
+.edu__cert-meta {
+  font-family: var(--edu-font-body);
+  font-size: clamp(9px, 1.1vh, 11px);
+  font-weight: 400;
+  color: var(--edu-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/*
+ * Notch: 16px circle half-overlapping the card edge.
+ * Background matches the section bg (#f1eeee) so it looks punched out
+ * against the light background. The border makes it legible.
+ */
+.edu__cert-notch {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--edu-bg);
+  /* #f1eeee — matches section bg */
+  border: 1px solid var(--edu-border);
+  top: 50%;
+  transform: translateY(-50%);
+  flex-shrink: 0;
+}
+
+.edu__cert-notch--left {
+  left: -8px;
+}
+
+.edu__cert-notch--right {
+  right: -8px;
+}
+
+
+/* ============================================================
+   7. RIGHT PANEL COMPONENTS
+   ============================================================ */
+
+/* ── Now Climbing ──────────────────────────────────────────── */
+.edu__climbing {
+  background: linear-gradient(135deg, #2B1519 0%, #1C1214 100%);
+  border: 1px solid rgba(232, 36, 79, 0.4);
+  border-radius: var(--edu-radius-card);
+  padding: clamp(16px, 2.2vh, 24px) clamp(16px, 1.5vw, 22px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 1.2vh, 12px);
+  flex-shrink: 0;
+}
+
+.edu__climbing-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Pulsing crimson dot */
+.edu__climbing-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--edu-accent);
+  flex-shrink: 0;
+  animation: edu-dot-pulse 2s ease-in-out infinite;
+}
+
+/* Label: 14px, uppercase, letter-spaced */
+.edu__climbing-label {
+  font-family: var(--edu-font-body);
+  font-size: clamp(12px, 1.5vh, 14px);
+  font-weight: 600;
+  color: var(--edu-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Topic title: 30-34px bold */
+.edu__climbing-title {
+  font-family: var(--edu-font-body);
+  font-size: clamp(20px, 3vh, 32px);
+  font-weight: 700;
+  color: var(--edu-text);
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* Course/platform line: 16-17px */
+.edu__climbing-subtitle {
+  font-family: var(--edu-font-body);
+  font-size: clamp(13px, 1.8vh, 16.5px);
+  font-weight: 400;
+  color: var(--edu-muted);
+  margin: 0;
+}
+
+.edu__climbing-track-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+/* Track container: 8-10px height */
+.edu__climbing-track {
+  width: 100%;
+  height: clamp(7px, 1vh, 9px);
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.edu__climbing-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--edu-accent) 0%, #FF4D6A 100%);
+  border-radius: 999px;
+}
+
+/* Labels below the bar: 16-17px */
+.edu__climbing-pct-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.edu__climbing-pct-label {
+  font-family: var(--edu-font-body);
+  font-size: clamp(12px, 1.6vh, 16px);
+  font-weight: 400;
+  color: var(--edu-muted);
+}
+
+.edu__climbing-pct-value {
+  font-family: var(--edu-font-body);
+  font-size: clamp(12px, 1.6vh, 16px);
+  font-weight: 600;
+  color: var(--edu-accent);
+}
+
+
+/* ── Stats Grid ("By the numbers") — flex: 1 to grow into available space ── */
+.edu__stats-section {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.4vh, 14px);
+  flex: 1;
+  min-height: 0;
+}
+
+/* Heading: 32-36px in serif font */
+.edu__stats-heading {
+  font-family: var(--edu-font-serif);
+  font-size: clamp(20px, 3vh, 32px);
+  font-weight: 700;
+  color: var(--edu-text);
+  margin: 0;
+}
+
+.edu__stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(10px, 1.2vw, 16px);
+  flex: 1;
+  min-height: 0;
+}
+
+/* Stat tiles: padding 24-28px, min-height 150-170px, flex: 1 */
+.edu__stat {
+  background: var(--edu-card);
+  border: 1px solid var(--edu-border);
+  border-radius: var(--edu-radius-inner);
+  padding: clamp(14px, 2.2vh, 26px) clamp(14px, 1.5vw, 24px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  min-height: clamp(80px, 12vh, 150px);
+  justify-content: center;
+  box-sizing: border-box;
+  flex: 1;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.edu__stat:hover {
+  border-color: rgba(232, 36, 79, 0.35);
+  transform: translateY(-2px);
+}
+
+/* Stat numbers: 72-88px in Anton display font */
+.edu__stat-number {
+  font-family: var(--edu-font-display);
+  font-size: clamp(38px, 6vh, 76px);
+  line-height: 1.0;
+  color: var(--edu-coral);
+  letter-spacing: -0.01em;
+}
+
+/* Stat labels: 15-16px */
+.edu__stat-label {
+  font-family: var(--edu-font-body);
+  font-size: clamp(11.5px, 1.5vh, 15.5px);
+  font-weight: 400;
+  color: var(--edu-muted);
+  line-height: 1.3;
+}
+
+
+/* ── Next Up Timeline ── */
+.edu__nextup-section {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.4vh, 14px);
+  flex-shrink: 0;
+}
+
+/* Heading: 32-36px in serif font matching By the numbers */
+.edu__nextup-heading {
+  font-family: var(--edu-font-serif);
+  font-size: clamp(20px, 3vh, 32px);
+  font-weight: 700;
+  color: var(--edu-text);
+  margin: 0;
+}
+
+.edu__nextup-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/*
+ * Vertical timeline line — centered with the 20-22px node dot
+ */
+.edu__nextup-list::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 0;
+  width: 2px;
+  height: 0;
+  background: linear-gradient(to bottom, var(--edu-accent) 0%, transparent 100%);
+  transition: height 0.8s cubic-bezier(.2, .8, .2, 1) 0.1s;
+  z-index: 0;
+}
+
+.edu__nextup-list:has(.edu__nextup-item--visible)::before {
+  height: 100%;
+}
+
+/* Timeline item */
+.edu__nextup-item {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 0 0 clamp(8px, 1.2vh, 14px) 0;
+  min-height: 44px;
+
+  opacity: 0;
+  transform: translateX(-8px);
+  transition:
+    opacity 0.4s ease var(--edu-nextup-delay, 0ms),
+    transform 0.4s ease var(--edu-nextup-delay, 0ms);
+}
+
+.edu__nextup-item--visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.edu__nextup-item:last-child {
+  padding-bottom: 0;
+}
+
+/* Node dot: 20-22px */
+.edu__nextup-node {
+  width: clamp(18px, 2.2vh, 22px);
+  height: clamp(18px, 2.2vh, 22px);
+  border-radius: 50%;
+  border: 2px solid var(--edu-accent);
+  background: var(--edu-card);
+  flex-shrink: 0;
+  margin-top: 2px;
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+}
+
+/* First node: filled + glow + pulse */
+.edu__nextup-node--active {
+  width: clamp(20px, 2.4vh, 24px);
+  height: clamp(20px, 2.4vh, 24px);
+  background: var(--edu-accent);
+  box-shadow: 0 0 12px rgba(232, 36, 79, 0.55);
+  animation: edu-node-pulse 2s ease-in-out infinite;
+}
+
+.edu__nextup-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+/* Timeline item titles: 20-22px bold */
+.edu__nextup-title {
+  font-family: var(--edu-font-body);
+  font-size: clamp(14px, 2vh, 21px);
+  font-weight: 700;
+  color: var(--edu-text);
+  line-height: 1.25;
+}
+
+/* Sub-lines: 15-16px */
+.edu__nextup-when {
+  font-family: var(--edu-font-body);
+  font-size: clamp(12px, 1.5vh, 15px);
+  font-weight: 400;
+  color: var(--edu-muted);
+}
+
+
+/* ============================================================
+   8. ANIMATIONS — unchanged except fill animation removed
+   ============================================================ */
+
+/* Active card slow glow pulse */
+@keyframes edu-active-pulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 50px rgba(240, 33, 79, 0.45);
+  }
+
+  50% {
+    box-shadow: 0 0 70px rgba(240, 33, 79, 0.65);
+  }
+}
+
+/* "You are here" badge float */
+@keyframes edu-badge-float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+/* Pulsing dot in now-climbing */
+@keyframes edu-dot-pulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.6);
+  }
+
+  50% {
+    box-shadow: 0 0 0 5px rgba(225, 29, 72, 0);
+  }
+}
+
+/* First timeline node pulse */
+@keyframes edu-node-pulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.6), 0 0 10px rgba(232, 36, 79, 0.55);
+  }
+
+  50% {
+    box-shadow: 0 0 0 6px rgba(225, 29, 72, 0), 0 0 16px rgba(232, 36, 79, 0.7);
+  }
+}
+
+/* Active card shine sweep (once on load) */
+.edu__step--active::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(105deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 60%);
+  animation: edu-shine 1.4s ease 0.6s forwards;
+  pointer-events: none;
+  z-index: 2;
+}
+
+@keyframes edu-shine {
+  0% {
+    left: -100%;
+  }
+
+  100% {
+    left: 150%;
+  }
+}
+
+
+/* ============================================================
+   9. FOCUS VISIBLE (accessibility)
+   ============================================================ */
+.edu__step:focus-visible,
+.edu__cert:focus-visible {
+  outline: 2px solid var(--edu-accent);
+  outline-offset: 3px;
+}
+
+.edu__resume-btn:focus-visible {
+  outline: 2px solid var(--edu-accent);
+  outline-offset: 3px;
+}
+
+
+/* ============================================================
+   10. RESPONSIVE
+   ============================================================ */
+
+/* ── ≤ 1100px: height:auto, stack right panel below left ──── */
+@media (max-width: 1100px) {
+  .edu {
+    height: auto;
+    padding: 52px 24px;
+  }
+
+  .edu__grid {
+    grid-template-columns: 1fr;
+    flex: unset;
+  }
+
+  .edu__stairs-flex {
+    flex: unset;
+  }
+
+  .edu__stairs-wrap {
+    flex: unset;
+  }
+
+  .edu__stairs-row {
+    flex: unset;
+    /* Restore pixel-based heights for stacked layout */
+    align-items: end;
+    height: auto;
+  }
+
+  /* Restore pixel-based staircase heights */
+  .edu__stairs-row .edu__step:nth-child(1) {
+    height: auto;
+    min-height: clamp(150px, 14vw, 180px);
+  }
+
+  .edu__stairs-row .edu__step:nth-child(2) {
+    height: auto;
+    min-height: clamp(190px, 18vw, 236px);
+  }
+
+  .edu__stairs-row .edu__step:nth-child(3) {
+    height: auto;
+    min-height: clamp(230px, 22vw, 292px);
+  }
+
+  .edu__stairs-row .edu__step:nth-child(4) {
+    height: auto;
+    min-height: clamp(280px, 28vw, 375px);
+  }
+
+  .edu__panel--right {
+    /* 2-col grid inside the right panel when stacked */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .edu__step-title {
+    font-size: clamp(18px, 2vw, 26px);
+  }
+
+  .edu__heading {
+    font-size: clamp(52px, 7vw, 76px);
+  }
+
+  .edu__certs-heading {
+    color: #1a1616;
+  }
+}
+
+/* ── ≤ 700px: mobile layout ─────────────────────────────── */
+@media (max-width: 700px) {
+  .edu {
+    height: auto;
+    padding: 40px 16px;
+  }
+
+  .edu__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .edu__subtitle {
+    text-align: left;
+    max-width: 100%;
+  }
+
+  .edu__heading {
+    font-size: clamp(44px, 13vw, 64px);
+  }
+
+  /*
+   * Staircase: horizontal scroll-snap row.
+   * Scrollbar hidden via scrollbar-width: none + ::-webkit-scrollbar.
+   */
+  .edu__stairs-wrap {
+    overflow-x: auto;
+    overflow-y: visible;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 2px;
+  }
+
+  .edu__stairs-wrap::-webkit-scrollbar {
+    display: none;
+  }
+
+  .edu__stairs-row {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 8px;
+    align-items: flex-end;
+    height: auto;
+  }
+
+  .edu__step {
+    flex: 0 0 210px;
+    height: auto !important;
+    min-height: 260px !important;
+    border-radius: 20px 20px 0 0;
+    scroll-snap-align: start;
+  }
+
+  .edu__stairs-floor {
+    width: 0;
+  }
+
+  /* Certifications: single column */
+  .edu__certs-list {
+    grid-template-columns: 1fr;
+  }
+
+  /* Right panel: single column */
+  .edu__panel--right {
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: unset;
+  }
+}
+
+
+/* ============================================================
+   11. REDUCED MOTION — disable all animations
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+
+  .edu__heading,
+  .edu__subtitle,
+  .edu__step,
+  .edu__cert,
+  .edu__nextup-item {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .edu__stairs-floor {
+    transition: none !important;
+    width: 100% !important;
+  }
+
+  .edu__step--active {
+    animation: none !important;
+    box-shadow: var(--edu-active-glow) !important;
+  }
+
+  .edu__step--active::after {
+    display: none;
+  }
+
+  .edu__step-badge {
+    animation: none !important;
+  }
+
+  .edu__climbing-dot {
+    animation: none !important;
+  }
+
+  .edu__nextup-node--active {
+    animation: none !important;
+  }
+
+  .edu__nextup-list::before {
+    transition: none !important;
+    height: 100% !important;
+  }
+}

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Hero from './components/Hero/Hero';
 import BlackStrip from './components/BlackStrip/BlackStrip';
 import Overview from './components/Overview/Overview';
+import Education from './components/Education/Education';
 import './App.css';
 
 /**
@@ -29,9 +30,12 @@ function App() {
       {/* Overview / About Me Section */}
       <Overview />
 
-      {/* Target anchor sections for smooth scroll (#about, #education, etc.) */}
+      {/* Education Section */}
+      <Education />
+
+      {/* Target anchor sections for smooth scroll (#about, etc.) */}
       <div id="about" tabIndex="-1" />
-      <div id="education" tabIndex="-1" />
+      {/* #education id lives on the Education section itself */}
       <div id="tech-stack" tabIndex="-1" />
       <div id="projects" tabIndex="-1" />
       <div id="experience" tabIndex="-1" />
