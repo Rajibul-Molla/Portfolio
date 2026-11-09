@@ -92,9 +92,9 @@ export const nowClimbing = {
  */
 export const stats = [
   { id: "stat-1", value: 12, suffix: "+", label: "[Years of learning]" },
-  { id: "stat-2", value: 6,  suffix: "",  label: "[Certificates earned]" },
+  { id: "stat-2", value: 6, suffix: "", label: "[Certificates earned]" },
   { id: "stat-3", value: 15, suffix: "+", label: "[Projects built]" },
-  { id: "stat-4", value: 4,  suffix: "",  label: "[Tech stacks used]" },
+  { id: "stat-4", value: 4, suffix: "", label: "[Tech stacks used]" },
 ];
 
 /**
@@ -112,4 +112,5 @@ export const nextUp = [
     title: "[Advanced course]",
     when: "[Quarter, Year]",
   },
+
 ];

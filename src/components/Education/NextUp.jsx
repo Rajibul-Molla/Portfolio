@@ -19,9 +19,8 @@ export default function NextUp({ items, isInView }) {
         {items.map((item, i) => (
           <li
             key={item.id}
-            className={`edu__nextup-item${isInView ? " edu__nextup-item--visible" : ""}${
-              i === 0 ? " edu__nextup-item--first" : ""
-            }`}
+            className={`edu__nextup-item${isInView ? " edu__nextup-item--visible" : ""}${i === 0 ? " edu__nextup-item--first" : ""
+              }`}
             style={{ "--edu-nextup-delay": `${i * 160}ms` }}
           >
             {/* Node dot */}
@@ -34,6 +33,7 @@ export default function NextUp({ items, isInView }) {
             <div className="edu__nextup-text">
               <span className="edu__nextup-title">{item.title}</span>
               <span className="edu__nextup-when">{item.when}</span>
+
             </div>
           </li>
         ))}

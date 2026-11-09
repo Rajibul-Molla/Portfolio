@@ -27,14 +27,13 @@ import StatsGrid         from "./StatsGrid";
 import NextUp            from "./NextUp";
 
 export default function Education() {
-  // Trigger animations once when the section enters the viewport
-  const [sectionRef, isInView] = useInView(0.15);
+  // Always true: everything loaded immediately with no animation/delay
+  const isInView = true;
 
   return (
     <section
       id="education"
       className="edu"
-      ref={sectionRef}
       aria-labelledby="edu-heading"
     >
       <div className="edu__container">

@@ -3,6 +3,7 @@ import Hero from './components/Hero/Hero';
 import BlackStrip from './components/BlackStrip/BlackStrip';
 import Overview from './components/Overview/Overview';
 import Education from './components/Education/Education';
+import TechStack from './components/tech-stack';
 import './App.css';
 
 /**
@@ -36,7 +37,7 @@ function App() {
       {/* Target anchor sections for smooth scroll (#about, etc.) */}
       <div id="about" tabIndex="-1" />
       {/* #education id lives on the Education section itself */}
-      <div id="tech-stack" tabIndex="-1" />
+      <TechStack id="tech-stack" showPlaceholders={true} />
       <div id="projects" tabIndex="-1" />
       <div id="experience" tabIndex="-1" />
       <div id="contact" tabIndex="-1" />

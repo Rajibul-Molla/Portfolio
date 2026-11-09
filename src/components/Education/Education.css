@@ -16,7 +16,7 @@
 .edu {
   /* Colours */
   --edu-bg: #f1eeee;
-  /* Change 3: light background */
+  /* Outside color matches Overview section */
   --edu-panel: #1A1415;
   --edu-card: #241D1F;
   --edu-border: rgba(255, 255, 255, 0.08);
@@ -49,6 +49,15 @@
   --edu-max-width: 1100px;
 }
 
+/* Turn off all animations and transitions across the entire Education section */
+.edu,
+.edu *,
+.edu *::before,
+.edu *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
 
 /* ============================================================
    2. SECTION SHELL & CONTAINER
@@ -58,20 +67,19 @@
   width: 100%;
   box-sizing: border-box;
   background: var(--edu-bg);
-  /* #f1eeee — Change 3 */
-  /* Change 4: 80vh height + 3vh padding, desktop */
-  /* height: 80vh;
-  min-height: 560px; */
+  /* Outside background stays #f1eeee, matching Overview */
+  border: none;
   height: 100vh;
   min-height: 630px;
   padding: 3vh 24px;
   padding-left: 100px;
   overflow: hidden;
-  /* Change 2: Ubuntu as the base font for everything */
   font-family: var(--edu-font-body);
   color: var(--edu-text);
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 /* bg-glow element is gone (no dark background to need it).
@@ -86,6 +94,12 @@
   width: 100%;
   max-width: var(--edu-max-width);
   margin: 0 auto 0 0;
+  background: #ffffff;
+  border: 2px solid #ffffff;
+  border-radius: var(--edu-radius-outer);
+  padding: clamp(16px, 2.5vh, 28px) clamp(16px, 2vw, 28px);
+  box-sizing: border-box;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
   /* Fill the section height so panels can stretch */
   flex: 1;
   min-height: 0;
@@ -164,15 +178,14 @@
   margin: 0;
   text-transform: uppercase;
 
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.6s cubic-bezier(.2, .8, .2, 1),
-    transform 0.6s cubic-bezier(.2, .8, .2, 1);
+  opacity: 1;
+  transform: none;
+  transition: none;
 }
 
 .edu__heading--visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
 }
 
 /* Subtitle — Ubuntu (Change 2), muted on light bg */
@@ -189,8 +202,8 @@
   flex-shrink: 0;
   align-self: center;
 
-  opacity: 0;
-  transition: opacity 0.5s ease 0.15s;
+  opacity: 1;
+  transition: none;
 }
 
 .edu__subtitle--visible {
@@ -216,8 +229,8 @@
   left: 0;
   height: 1px;
   background: rgba(255, 255, 255, 0.1);
-  width: 0;
-  transition: width 0.7s cubic-bezier(.2, .8, .2, 1) 0.15s;
+  width: 100%;
+  transition: none;
   z-index: 2;
 }
 
@@ -258,13 +271,9 @@
   /* Base height kept small so tallest (100%) never overflows */
   height: 52%;
 
-  opacity: 0;
-  transform: translateY(60px);
-  transition:
-    opacity 0.55s cubic-bezier(.2, .8, .2, 1) var(--edu-step-delay, 0ms),
-    transform 0.55s cubic-bezier(.2, .8, .2, 1) var(--edu-step-delay, 0ms),
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
+  opacity: 1;
+  transform: none;
+  transition: none;
 }
 
 /*
@@ -289,12 +298,12 @@
 
 .edu__step--visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
 }
 
 /* Hover on inactive cards */
 .edu__step:not(.edu__step--active):hover {
-  transform: translateY(-6px);
+  transform: none;
   border-color: rgba(232, 36, 79, 0.35);
   box-shadow: 0 0 18px rgba(232, 36, 79, 0.15);
 }
@@ -304,7 +313,7 @@
   background: var(--edu-active-grad);
   border-color: transparent;
   box-shadow: var(--edu-active-glow);
-  animation: edu-active-pulse 3s ease-in-out infinite;
+  animation: none;
 }
 
 /* "You are here" badge — Change 2: Ubuntu */
@@ -320,7 +329,7 @@
   padding: 3px 10px;
   border-radius: 999px;
   white-space: nowrap;
-  animation: edu-badge-float 2.8s ease-in-out infinite;
+  animation: none;
 }
 
 /* Icon + year row — Change 2: Ubuntu for year text */
@@ -372,9 +381,9 @@
   /* No uppercase — Ubuntu 700 reads well in mixed case */
 }
 
-/* Active card title slightly larger */
+/* Active card title matches previous cards */
 .edu__step--active .edu__step-title {
-  font-size: clamp(20px, 2.5vh, 30px);
+  font-size: inherit;
 }
 
 /* Institution — unchanged Ubuntu 600 */
@@ -420,11 +429,12 @@
   pointer-events: none;
   user-select: none;
   z-index: 0;
-  transition: opacity 0.4s ease 0.3s;
+  transition: none;
+  opacity: 1;
 }
 
 .edu__step:not(.edu__step--visible) .edu__step-ghost {
-  opacity: 0;
+  opacity: 1;
 }
 
 .edu__step--active .edu__step-ghost {
@@ -486,22 +496,18 @@
   box-sizing: border-box;
   overflow: visible;
 
-  opacity: 0;
-  transform: translateY(16px);
-  transition:
-    opacity 0.4s ease var(--edu-cert-delay, 0ms),
-    transform 0.4s ease var(--edu-cert-delay, 0ms),
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
+  opacity: 1;
+  transform: none;
+  transition: none;
 }
 
 .edu__cert--visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
 }
 
 .edu__cert:hover {
-  transform: translateY(-4px);
+  transform: none;
   border-color: rgba(232, 36, 79, 0.3);
   box-shadow: 0 0 14px rgba(232, 36, 79, 0.1);
 }
@@ -545,8 +551,8 @@
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: var(--edu-bg);
-  /* #f1eeee — matches section bg */
+  background: #ffffff;
+  /* #ffffff — matches white container bg */
   border: 1px solid var(--edu-border);
   top: 50%;
   transform: translateY(-50%);
@@ -591,7 +597,7 @@
   border-radius: 50%;
   background: var(--edu-accent);
   flex-shrink: 0;
-  animation: edu-dot-pulse 2s ease-in-out infinite;
+  animation: none;
 }
 
 /* Label: 14px, uppercase, letter-spaced */
@@ -698,7 +704,7 @@
   background: var(--edu-card);
   border: 1px solid var(--edu-border);
   border-radius: var(--edu-radius-inner);
-  padding: clamp(14px, 2.2vh, 26px) clamp(14px, 1.5vw, 24px);
+  /* padding: clamp(14px, 2.2vh, 26px) clamp(14px, 1.5vw, 24px); */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -707,21 +713,22 @@
   justify-content: center;
   box-sizing: border-box;
   flex: 1;
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  transition: none;
 }
 
 .edu__stat:hover {
   border-color: rgba(232, 36, 79, 0.35);
-  transform: translateY(-2px);
+  transform: none;
 }
 
 /* Stat numbers: 72-88px in Anton display font */
 .edu__stat-number {
   font-family: var(--edu-font-display);
-  font-size: clamp(38px, 6vh, 76px);
+  font-size: 29px;
   line-height: 1.0;
   color: var(--edu-coral);
   letter-spacing: -0.01em;
+  padding-left: 9px;
 }
 
 /* Stat labels: 15-16px */
@@ -731,6 +738,7 @@
   font-weight: 400;
   color: var(--edu-muted);
   line-height: 1.3;
+  padding-left: 5px;
 }
 
 
@@ -769,9 +777,9 @@
   left: 10px;
   top: 0;
   width: 2px;
-  height: 0;
+  height: 100%;
   background: linear-gradient(to bottom, var(--edu-accent) 0%, transparent 100%);
-  transition: height 0.8s cubic-bezier(.2, .8, .2, 1) 0.1s;
+  transition: none;
   z-index: 0;
 }
 
@@ -788,16 +796,14 @@
   padding: 0 0 clamp(8px, 1.2vh, 14px) 0;
   min-height: 44px;
 
-  opacity: 0;
-  transform: translateX(-8px);
-  transition:
-    opacity 0.4s ease var(--edu-nextup-delay, 0ms),
-    transform 0.4s ease var(--edu-nextup-delay, 0ms);
+  opacity: 1;
+  transform: none;
+  transition: none;
 }
 
 .edu__nextup-item--visible {
   opacity: 1;
-  transform: translateX(0);
+  transform: none;
 }
 
 .edu__nextup-item:last-child {
@@ -824,7 +830,7 @@
   height: clamp(20px, 2.4vh, 24px);
   background: var(--edu-accent);
   box-shadow: 0 0 12px rgba(232, 36, 79, 0.55);
-  animation: edu-node-pulse 2s ease-in-out infinite;
+  animation: none;
 }
 
 .edu__nextup-text {
@@ -907,21 +913,9 @@
   }
 }
 
-/* Active card shine sweep (once on load) */
+/* Active card shine sweep (disabled) */
 .edu__step--active::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 60%;
-  height: 100%;
-  background: linear-gradient(105deg,
-      transparent 40%,
-      rgba(255, 255, 255, 0.1) 50%,
-      transparent 60%);
-  animation: edu-shine 1.4s ease 0.6s forwards;
-  pointer-events: none;
-  z-index: 2;
+  display: none;
 }
 
 @keyframes edu-shine {
@@ -951,146 +945,773 @@
 
 
 /* ============================================================
-   10. RESPONSIVE
+   10. RESPONSIVE (Maintain Desktop Arrangement on Mobile)
    ============================================================ */
 
-/* ── ≤ 1100px: height:auto, stack right panel below left ──── */
+/* ── ≤ 1100px: Tablet & small desktop scaling ────────────── */
 @media (max-width: 1100px) {
   .edu {
     height: auto;
-    padding: 52px 24px;
+    min-height: unset;
+    padding: 24px 16px;
+    background: var(--edu-bg);
+    border: none;
+    overflow-x: hidden;
+  }
+
+  .edu__container {
+    max-width: 100%;
+    margin: 0 auto;
+    background: #ffffff;
+    border: 2px solid #ffffff;
+    border-radius: 20px;
+    padding: 16px 14px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
   }
 
   .edu__grid {
-    grid-template-columns: 1fr;
-    flex: unset;
+    display: grid;
+    grid-template-columns: 69% 31%;
+    gap: clamp(8px, 1.5vw, 16px);
+    width: 100%;
+  }
+
+  .edu__panel--left {
+    gap: clamp(10px, 1.5vw, 16px);
+  }
+
+  .edu__header {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .edu__heading {
+    font-size: clamp(32px, 5.5vw, 56px);
+    line-height: 1;
+  }
+
+  .edu__subtitle {
+    font-size: clamp(9px, 1.2vw, 12px);
+    max-width: clamp(80px, 15vw, 140px);
+    text-align: right;
   }
 
   .edu__stairs-flex {
     flex: unset;
+    width: 100%;
   }
 
   .edu__stairs-wrap {
-    flex: unset;
-  }
-
-  .edu__stairs-row {
-    flex: unset;
-    /* Restore pixel-based heights for stacked layout */
-    align-items: end;
-    height: auto;
-  }
-
-  /* Restore pixel-based staircase heights */
-  .edu__stairs-row .edu__step:nth-child(1) {
-    height: auto;
-    min-height: clamp(150px, 14vw, 180px);
-  }
-
-  .edu__stairs-row .edu__step:nth-child(2) {
-    height: auto;
-    min-height: clamp(190px, 18vw, 236px);
-  }
-
-  .edu__stairs-row .edu__step:nth-child(3) {
-    height: auto;
-    min-height: clamp(230px, 22vw, 292px);
-  }
-
-  .edu__stairs-row .edu__step:nth-child(4) {
-    height: auto;
-    min-height: clamp(280px, 28vw, 375px);
-  }
-
-  .edu__panel--right {
-    /* 2-col grid inside the right panel when stacked */
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-
-  .edu__step-title {
-    font-size: clamp(18px, 2vw, 26px);
-  }
-
-  .edu__heading {
-    font-size: clamp(52px, 7vw, 76px);
-  }
-
-  .edu__certs-heading {
-    color: #1a1616;
-  }
-}
-
-/* ── ≤ 700px: mobile layout ─────────────────────────────── */
-@media (max-width: 700px) {
-  .edu {
-    height: auto;
-    padding: 40px 16px;
-  }
-
-  .edu__header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .edu__subtitle {
-    text-align: left;
-    max-width: 100%;
-  }
-
-  .edu__heading {
-    font-size: clamp(44px, 13vw, 64px);
-  }
-
-  /*
-   * Staircase: horizontal scroll-snap row.
-   * Scrollbar hidden via scrollbar-width: none + ::-webkit-scrollbar.
-   */
-  .edu__stairs-wrap {
-    overflow-x: auto;
-    overflow-y: visible;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    padding-bottom: 2px;
-  }
-
-  .edu__stairs-wrap::-webkit-scrollbar {
-    display: none;
-  }
-
-  .edu__stairs-row {
+    position: relative;
+    height: clamp(230px, 34vw, 360px);
     display: flex;
-    flex-wrap: nowrap;
-    gap: 10px;
-    scroll-snap-type: x mandatory;
-    padding-bottom: 8px;
-    align-items: flex-end;
-    height: auto;
-  }
-
-  .edu__step {
-    flex: 0 0 210px;
-    height: auto !important;
-    min-height: 260px !important;
-    border-radius: 20px 20px 0 0;
-    scroll-snap-align: start;
+    flex-direction: column;
+    overflow: visible;
   }
 
   .edu__stairs-floor {
-    width: 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100% !important;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
   }
 
-  /* Certifications: single column */
+  .edu__stairs-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(5px, 0.8vw, 10px);
+    align-items: end;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .edu__step {
+    border-radius: clamp(12px, 1.8vw, 20px) clamp(12px, 1.8vw, 20px) 0 0;
+    padding: clamp(8px, 1.2vw, 14px) clamp(6px, 0.9vw, 12px) clamp(10px, 1.4vw, 18px);
+    gap: clamp(3px, 0.5vw, 6px);
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .edu__stairs-row .edu__step:nth-child(1) {
+    height: 52% !important;
+    min-height: unset !important;
+  }
+
+  .edu__stairs-row .edu__step:nth-child(2) {
+    height: 67% !important;
+    min-height: unset !important;
+  }
+
+  .edu__stairs-row .edu__step:nth-child(3) {
+    height: 82% !important;
+    min-height: unset !important;
+  }
+
+  .edu__stairs-row .edu__step:nth-child(4) {
+    height: 100% !important;
+    min-height: unset !important;
+  }
+
+  .edu__step-badge {
+    font-size: clamp(6.5px, 1vw, 8.5px);
+    padding: 1.5px clamp(4px, 0.6vw, 7px);
+    right: clamp(4px, 0.8vw, 10px);
+    top: -1px;
+  }
+
+  .edu__step-top {
+    gap: 4px;
+  }
+
+  .edu__step-icon {
+    width: clamp(9px, 1.2vw, 13px);
+    height: clamp(9px, 1.2vw, 13px);
+  }
+
+  .edu__step-years {
+    font-size: clamp(7px, 1vw, 10px);
+  }
+
+  .edu__step-title,
+  .edu__step--active .edu__step-title {
+    font-size: clamp(9.5px, 1.5vw, 18px);
+    line-height: 1.15;
+    word-break: break-word;
+    hyphens: auto;
+  }
+
+  .edu__step-institution {
+    font-size: clamp(7px, 1vw, 10.5px);
+    line-height: 1.2;
+    word-break: break-word;
+  }
+
+  .edu__step-desc {
+    font-size: clamp(6.5px, 0.9vw, 9.5px);
+    line-height: 1.3;
+    overflow: hidden;
+  }
+
+  .edu__step-ghost {
+    font-size: clamp(36px, 6vw, 80px);
+    bottom: -10px;
+    right: -2px;
+  }
+
+  .edu__certs-section {
+    gap: clamp(6px, 1vw, 12px);
+  }
+
+  .edu__certs-heading {
+    margin-top: -15px;
+  }
+
   .edu__certs-list {
-    grid-template-columns: 1fr;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(5px, 0.8vw, 10px);
   }
 
-  /* Right panel: single column */
+  .edu__cert {
+    min-height: clamp(38px, 5vw, 52px);
+    padding: clamp(4px, 0.6vw, 8px) clamp(10px, 1.5vw, 18px);
+    border-radius: clamp(8px, 1.2vw, 12px);
+  }
+
+  .edu__cert-notch {
+    width: clamp(10px, 1.4vw, 14px);
+    height: clamp(10px, 1.4vw, 14px);
+  }
+
+  .edu__cert-notch--left {
+    left: clamp(-5px, -0.7vw, -7px);
+  }
+
+  .edu__cert-notch--right {
+    right: clamp(-5px, -0.7vw, -7px);
+  }
+
+  .edu__cert-name {
+    font-size: clamp(7.5px, 1.1vw, 12px);
+  }
+
+  .edu__cert-meta {
+    font-size: clamp(6.5px, 0.9vw, 10px);
+  }
+
+  /* Right Panel */
   .edu__panel--right {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: unset !important;
+    border-radius: clamp(14px, 2vw, 24px);
+    padding: clamp(12px, 1.8vw, 24px) clamp(8px, 1.4vw, 20px);
+    gap: clamp(10px, 1.6vw, 20px);
+    height: 100%;
+    box-sizing: border-box;
+  }
+
+  .edu__climbing {
+    border-radius: clamp(10px, 1.4vw, 16px);
+    padding: clamp(8px, 1.2vw, 16px) clamp(8px, 1.2vw, 14px);
+    gap: clamp(4px, 0.7vw, 9px);
+  }
+
+  .edu__climbing-dot {
+    width: clamp(5px, 0.7vw, 7px);
+    height: clamp(5px, 0.7vw, 7px);
+  }
+
+  .edu__climbing-label {
+    font-size: clamp(7px, 1vw, 11px);
+  }
+
+  .edu__climbing-title {
+    font-size: clamp(9px, 1.4vw, 18px);
+    line-height: 1.2;
+    word-break: break-word;
+  }
+
+  .edu__climbing-subtitle {
+    font-size: clamp(7px, 1vw, 12px);
+  }
+
+  .edu__climbing-track {
+    height: clamp(4px, 0.6vw, 7px);
+  }
+
+  .edu__climbing-pct-label,
+  .edu__climbing-pct-value {
+    font-size: clamp(7px, 1vw, 11px);
+  }
+
+  .edu__stats-section {
+    gap: clamp(5px, 0.8vw, 10px);
+    flex: unset;
+  }
+
+  .edu__stats-heading {
+    font-size: clamp(10px, 1.5vw, 18px);
+  }
+
+  .edu__stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(5px, 0.8vw, 10px);
+    flex: unset;
+  }
+
+  .edu__stat {
+    min-height: clamp(42px, 6vw, 76px);
+    padding: clamp(6px, 0.9vw, 12px) clamp(6px, 0.9vw, 12px);
+    border-radius: clamp(8px, 1.2vw, 12px);
+    gap: 2px;
+  }
+
+  .edu__stat-number {
+    font-size: clamp(16px, 2.6vw, 36px);
+  }
+
+  .edu__stat-label {
+    font-size: clamp(6.5px, 0.9vw, 11px);
+    line-height: 1.15;
+  }
+
+  .edu__nextup-section {
+    gap: clamp(5px, 0.8vw, 10px);
+  }
+
+  .edu__nextup-heading {
+    font-size: clamp(10px, 1.5vw, 18px);
+  }
+
+  .edu__nextup-list::before {
+    left: clamp(4.5px, 0.7vw, 8px);
+    width: clamp(1px, 0.2vw, 2px);
+  }
+
+  .edu__nextup-item {
+    gap: clamp(5px, 0.8vw, 10px);
+    padding-bottom: clamp(4px, 0.6vw, 8px);
+    min-height: clamp(22px, 3.2vw, 34px);
+  }
+
+  .edu__nextup-node {
+    width: clamp(10px, 1.4vw, 16px);
+    height: clamp(10px, 1.4vw, 16px);
+    border-width: clamp(1px, 0.2vw, 2px);
+    margin-top: 1px;
+  }
+
+  .edu__nextup-node--active {
+    width: clamp(11px, 1.5vw, 18px);
+    height: clamp(11px, 1.5vw, 18px);
+  }
+
+  .edu__nextup-title {
+    font-size: clamp(7.5px, 1.1vw, 13px);
+    line-height: 1.2;
+    word-break: break-word;
+  }
+
+  .edu__nextup-when {
+    font-size: clamp(6.5px, 0.9vw, 10px);
+  }
+}
+
+/* ── ≤ 768px: Mobile screen scaling ──────────────────────── */
+@media (max-width: 768px) {
+
+  /* Fix 1: Replace fixed/viewport heights with auto, min-height: 0, reduce bottom padding to 28px (24-32px range) */
+  .edu {
+    background: var(--edu-bg);
+    border: none;
+    height: auto;
+    min-height: 0;
+    padding: 24px 8px 28px;
+    padding-left: 8px;
+    overflow-x: hidden;
+  }
+
+  .edu__stat-number {
+    padding-left: 2px;
+  }
+
+  .edu__stat-label {
+    padding-left: 0px;
+  }
+
+  .edu__container {
+    background: #ffffff;
+    border: 2px solid #ffffff;
+    border-radius: 14px;
+    padding: 10px 6px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    height: auto;
+    min-height: 0;
+    flex: none;
+  }
+
+  .edu__grid {
+    grid-template-columns: 69% 31%;
+    gap: 5px;
+    height: auto;
+    min-height: 0;
+    flex: none;
+    align-items: stretch;
+  }
+
+  .edu__panel--left {
+    gap: 7px;
+    height: 100%;
+    min-height: 0;
     display: flex;
     flex-direction: column;
-    grid-template-columns: unset;
+    justify-content: space-between;
+    align-self: stretch;
+  }
+
+  .edu__heading {
+    font-size: clamp(20px, 6.2vw, 34px);
+  }
+
+  .edu__subtitle {
+    font-size: clamp(6.5px, 1.8vw, 8.5px);
+    max-width: 80px;
+    line-height: 1.2;
+  }
+
+  /* .edu__stairs-flex {
+    flex: none;
+    height: 38vh;
+    min-height: 38vh;
+    width: 100%;
+  } */
+
+  /* Education staircase bar: 38vh height */
+  /* .edu__stairs-wrap {
+    height: 38vh;
+    min-height: 38vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+  } */
+
+  .edu__stairs-flex,
+  .edu__stairs-wrap {
+    height: clamp(230px, 67.5vw, 520px);
+    min-height: 0;
+  }
+
+  .edu__stairs-row {
+    height: 100%;
+    min-height: 0;
+  }
+
+  .edu__stairs-row {
+    gap: 3px;
+    height: 100%;
+    min-height: 23vh;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: end;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .edu__step {
+    border-radius: 9px 9px 0 0;
+    padding: 5px 3px 6px 3px;
+    gap: 2px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .edu__step-badge {
+    font-size: 5px;
+    padding: 1px 3px;
+    right: 2px;
+  }
+
+  .edu__step-top {
+    gap: 2px;
+  }
+
+  .edu__step-icon {
+    width: 8px;
+    height: 8px;
+  }
+
+  .edu__step-years {
+    font-size: 5.5px;
+  }
+
+  .edu__step-title,
+  .edu__step--active .edu__step-title {
+    font-size: clamp(7px, 1.9vw, 10px);
+    line-height: 1.1;
+  }
+
+  /* Fix 4: Removed artificial padding-bottom: 79px which caused empty dead space inside the cards */
+  .edu__step-institution {
+    font-size: clamp(6.5px, 1.4vw, 8px);
+    line-height: 1.15;
+    padding-bottom: 0;
+  }
+
+  .edu__step-desc {
+    font-size: clamp(4.8px, 1.2vw, 6.5px);
+    line-height: 1.2;
+    display: none;
+  }
+
+  .edu__step-ghost {
+    font-size: clamp(24px, 20vw, 40px);
+    bottom: -6px;
+    right: -1px;
+  }
+
+  /* Fix 5: Clean 18px gap (target 16-24px) between staircase baseline and certifications block */
+  .edu__certs-section {
+    margin-top: 18px;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
+  .edu__certs-heading {
+    font-size: 16px;
+  }
+
+  .edu__certs-list {
+    gap: 3px;
+  }
+
+  .edu__cert {
+    min-height: 30px;
+    padding: 3px 7px;
+    border-radius: 6px;
+  }
+
+  .edu__cert-notch {
+    width: 8px;
+    height: 8px;
+  }
+
+  .edu__cert-notch--left {
+    left: -4px;
+  }
+
+  .edu__cert-notch--right {
+    right: -4px;
+  }
+
+  .edu__cert-name {
+    font-size: clamp(6px, 1.6vw, 8px);
+  }
+
+  .edu__cert-meta {
+    font-size: clamp(5px, 1.3vw, 6.5px);
+  }
+
+  /* ── Right Panel ─── stretch full column height, distribute evenly ── */
+  .edu__panel--right {
+    /* keep everything else the same, change only this line */
+    justify-content: flex-start;
+    /* was space-between */
+  }
+
+  /* ── Now Climbing card ─────────────────────────────────────── */
+  .edu__climbing {
+    border-radius: 8px;
+    padding: clamp(6px, 1.6vw, 10px);
+    /* was 5px, now breathes */
+    gap: clamp(4px, 1vw, 6px);
+  }
+
+  .edu__climbing-header {
+    gap: clamp(4px, 1vw, 6px);
+    /* tighter dot-to-label gap */
+  }
+
+  .edu__climbing-dot {
+    width: clamp(4px, 1.1vw, 6px);
+    height: clamp(4px, 1.1vw, 6px);
+  }
+
+  .edu__climbing-label {
+    font-size: clamp(5px, 1.4vw, 8px);
+    /* legible label, ≥ ~5px at 320px */
+    letter-spacing: 0.05em;
+  }
+
+  .edu__climbing-title {
+    font-size: clamp(7px, 2vw, 11px);
+    /* scaled title */
+    line-height: 1.15;
+    word-break: break-word;
+  }
+
+  .edu__climbing-subtitle {
+    font-size: clamp(5.5px, 1.5vw, 8px);
+    line-height: 1.15;
+  }
+
+  .edu__climbing-track-wrap {
+    gap: clamp(3px, 0.8vw, 5px);
+    margin-top: 2px;
+  }
+
+  .edu__climbing-track {
+    height: clamp(4px, 1.1vw, 7px);
+    /* comfortable progress bar height */
+    width: 100%;
+    /* full width */
+  }
+
+  .edu__climbing-pct-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .edu__climbing-pct-label,
+  .edu__climbing-pct-value {
+    font-size: clamp(5px, 1.3vw, 7px);
+    /* legible progress labels */
+  }
+
+  /* ── By the numbers ────────────────────────────────────────── */
+  .edu__stats-section {
+    gap: clamp(4px, 1vw, 7px);
+    flex: 0 0 auto;
+    /* was flex: 1, stop stretching */
+    min-height: 0;
+  }
+
+  .edu__stats-heading {
+    font-size: clamp(7px, 1.9vw, 11px);
+    /* legible heading */
+  }
+
+  .edu__stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    /* rows hug the boxes */
+    align-content: start;
+    gap: 5px 2px;
+    /* row gap 5px, column gap 2px */
+    flex: 0 0 auto;
+    min-height: 0;
+  }
+
+  /* .edu__stat {
+    height: auto;
+   
+    min-height: 54px;
+   
+    flex: none;
+    padding: clamp(4px, 1vw, 8px) clamp(3px, 0.8vw, 6px);
+    border-radius: 6px;
+    gap: 2px;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: hidden;
+  } */
+  .edu__stat {
+    min-height: 14.4vw;
+    /* was 54px */
+  }
+
+  .edu__stat-number {
+    font-size: clamp(12px, 3.4vw, 20px);
+    /* bigger, legible numbers */
+    line-height: 1;
+  }
+
+  .edu__stat-label {
+    font-size: clamp(4.5px, 1.2vw, 7px);
+    /* legible labels */
+    line-height: 1.15;
+    word-break: break-word;
+  }
+
+  /* ── Next up timeline ──────────────────────────────────────── */
+  .edu__nextup-section {
+    gap: clamp(4px, 1vw, 7px);
+    flex-shrink: 0;
+    margin-top: calc(10px - clamp(8px, 2.2vw, 14px));
+    /* total gap from boxes = 10px */
+  }
+
+  .edu__nextup-heading {
+    font-size: clamp(7px, 1.9vw, 11px);
+    /* matches stats heading */
+  }
+
+  .edu__nextup-list {
+    gap: 0;
+    /* item padding-bottom handles spacing */
+  }
+
+  .edu__nextup-list::before {
+    left: clamp(3px, 0.9vw, 5px);
+    /* centered with node */
+    width: 1px;
+  }
+
+  /* .edu__nextup-item {
+    gap: clamp(4px, 1vw, 7px);
+    padding-bottom: 15px;
+    
+    min-height: 29px;
+    
+    align-items: flex-start;
+  } */
+  .edu__nextup-item {
+    min-height: 7.7vw;
+    /* was 29px */
+    padding-bottom: 4vw;
+    /* was 15px */
+  }
+
+  .edu__nextup-node {
+    width: clamp(7px, 2vw, 10px);
+    height: clamp(7px, 2vw, 10px);
+    border-width: 1px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .edu__nextup-node--active {
+    width: clamp(8px, 2.2vw, 11px);
+    height: clamp(8px, 2.2vw, 11px);
+  }
+
+  .edu__nextup-text {
+    gap: 1px;
+    min-width: 0;
+    /* allow text to shrink, not overflow */
+  }
+
+  .edu__nextup-title {
+    font-size: clamp(5.5px, 1.5vw, 9px);
+    /* legible title */
+    line-height: 1.15;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .edu__nextup-when {
+    font-size: clamp(4.5px, 1.2vw, 7px);
+    /* legible sub-line */
+  }
+
+  .edu__certs-section {
+    margin-top: 4.8vw;
+    /* was 18px */
+  }
+}
+
+/* ── ≤ 380px: Small smartphone fine-tuning ───────────────── */
+@media (max-width: 380px) {
+  .edu {
+    padding: 16px 5px 24px;
+    padding-left: 5px;
+  }
+
+  .edu__grid {
+    gap: 4px;
+  }
+
+  .edu__stairs-row {
+    gap: 2px;
+  }
+
+  .edu__certs-list {
+    gap: 2px;
+  }
+
+  .edu__cert {
+    padding: 2px 5px;
+  }
+
+  .edu__cert-notch {
+    width: 6px;
+    height: 6px;
+  }
+
+  .edu__cert-notch--left {
+    left: -3px;
+  }
+
+  .edu__cert-notch--right {
+    right: -3px;
+  }
+
+  .edu__stats-grid {
+    gap: 5px 2px;
+    /* was gap: 2px */
+  }
+
+  .edu__stat {
+    padding: 3px 2px;
+  }
+
+  .edu__step-title,
+  .edu__step--active .edu__step-title {
+    font-size: 7px;
   }
 }
 
